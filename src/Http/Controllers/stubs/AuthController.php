@@ -72,7 +72,7 @@ class AuthController extends Controller
      * @param  \Nylo\LaravelNyloAuth\Http\Requests\ForgotPasswordRequest  $request
      * @return \Illuminate\Http\JsonResponse
     */
-    public function forgetPassword(ForgotPasswordRequest $request)
+    public function forgotPassword(ForgotPasswordRequest $request)
     {
         $status = Password::sendResetLink(
             $request->only('email')

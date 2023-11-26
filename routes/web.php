@@ -12,7 +12,7 @@ Route::group([
 ], function() {
     Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('register', [AuthController::class, 'register'])->name('register');
-    Route::post('forget-password', [AuthController::class, 'forgetPassword'])->name('forget-password');
+    Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('forget-password');
 
     Route::group([
         'middleware' => 'auth:sanctum',

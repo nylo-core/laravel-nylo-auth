@@ -2,7 +2,7 @@
 
 This package allows you to authenticate users via a Nylo Flutter app.
 
-Check out the Flutter package here to install the ui on your app: [laravel_nylo_auth](https://pub.dev/packages/laravel_auth_slate).
+Check out the Flutter package here to install the UI on your app: [laravel_nylo_auth](https://pub.dev/packages/laravel_auth_slate).
 
 ## Installation
 
@@ -12,7 +12,7 @@ You can install the package via composer:
 composer require nylo/laravel-nylo-auth
 ```
 
-You can publish and run the migrations with:
+You can publish with:
 
 ``` bash
 php artisan vendor:publish --provider="Nylo\LaravelNyloAuth\LaravelNyloAuthServiceProvider"
