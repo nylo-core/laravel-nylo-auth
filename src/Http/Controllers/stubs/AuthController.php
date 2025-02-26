@@ -53,7 +53,7 @@ class AuthController extends Controller
 		$user = $userModel::updateOrCreate(
 			['email' => $request->email],
 			[
-                'name' => '',
+                'name' => $request->name ?? '',
                 'email' => $request->email,
 				'password' => Hash::make($request->password),
 			]

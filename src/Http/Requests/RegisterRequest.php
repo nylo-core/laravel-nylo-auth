@@ -25,6 +25,7 @@ class RegisterRequest extends FormRequest
     {
         $userModel = config('laravel-nylo-auth.user_model');
         return [
+            'name' => 'sometimes|max:255',
             'email' => "required|email|max:255|unique:{$userModel},email",
             'password' => 'required|min:4',
         ];
