@@ -45,10 +45,6 @@ class AuthController extends Controller
      public function register(RegisterRequest $request)
      {
         $userModel = config('laravel-nylo-auth.user_model');
-    	$userExists = $userModel::where('email', $request->email)->exists();
-		if ($userExists) {
-			return response()->json(['status' => 506, 'message' => 'A user already exists with that email']);
-		}
 
 		$user = $userModel::updateOrCreate(
 			['email' => $request->email],

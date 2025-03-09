@@ -1,3 +1,7 @@
+## [1.2.1] - 2025-03-09
+
+* Update AuthController
+
 ## [1.2.0] - 2025-02-26
 
 * Laravel 12 support
