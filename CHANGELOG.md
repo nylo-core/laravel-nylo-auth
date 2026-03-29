@@ -1,3 +1,8 @@
+## [1.3.1] - 2026-03-29
+
+### Fixed
+- Capped `pestphp/pest` to `<2.36.1` and `pestphp/pest-plugin-laravel` to `<2.4` for PHP 8.1 compatibility
+
 ## [1.3.0] - 2026-03-29
 
 ### Added
