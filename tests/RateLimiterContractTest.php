@@ -71,3 +71,22 @@ it('authenticated routes have nylo-auth throttle middleware', function () {
 
     expect($userRoute->middleware())->toContain('throttle:nylo-auth');
 });
+
+it('allows swapping rate limiter class via config', function () {
+    $customLimiter = new class implements RateLimiterContract {
+        public function configure(): Limit|array
+        {
+            return Limit::perMinute(99)->by('custom-key');
+        }
+    };
+
+    $customClass = get_class($customLimiter);
+    app()->bind($customClass, fn () => $customLimiter);
+    config()->set('laravel-nylo-auth.rate_limits.public', $customClass);
+
+    $publicClass = config('laravel-nylo-auth.rate_limits.public');
+    $result = app($publicClass)->configure();
+
+    expect($result)->toBeInstanceOf(Limit::class);
+    expect($result->maxAttempts)->toBe(99);
+});
