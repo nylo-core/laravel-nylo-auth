@@ -7,17 +7,17 @@ it('RateLimiterContract interface exists and defines configure method')
     ->toBeInterface()
     ->toHaveMethod('configure');
 
-use Nylo\LaravelNyloAuth\RateLimiters\PublicRateLimiter;
-use Nylo\LaravelNyloAuth\RateLimiters\AuthenticatedRateLimiter;
 use Illuminate\Cache\RateLimiting\Limit;
+use Nylo\LaravelNyloAuth\RateLimiters\AuthenticatedRateLimiter;
+use Nylo\LaravelNyloAuth\RateLimiters\PublicRateLimiter;
 
 it('PublicRateLimiter implements RateLimiterContract', function () {
-    expect(new PublicRateLimiter())
+    expect(new PublicRateLimiter)
         ->toBeInstanceOf(RateLimiterContract::class);
 });
 
 it('PublicRateLimiter returns a Limit of 5 per minute', function () {
-    $limiter = new PublicRateLimiter();
+    $limiter = new PublicRateLimiter;
     $limit = $limiter->configure();
 
     expect($limit)->toBeInstanceOf(Limit::class);
@@ -26,12 +26,12 @@ it('PublicRateLimiter returns a Limit of 5 per minute', function () {
 });
 
 it('AuthenticatedRateLimiter implements RateLimiterContract', function () {
-    expect(new AuthenticatedRateLimiter())
+    expect(new AuthenticatedRateLimiter)
         ->toBeInstanceOf(RateLimiterContract::class);
 });
 
 it('AuthenticatedRateLimiter returns a Limit of 60 per minute', function () {
-    $limiter = new AuthenticatedRateLimiter();
+    $limiter = new AuthenticatedRateLimiter;
     $limit = $limiter->configure();
 
     expect($limit)->toBeInstanceOf(Limit::class);
@@ -73,7 +73,8 @@ it('authenticated routes have nylo-auth throttle middleware', function () {
 });
 
 it('allows swapping rate limiter class via config', function () {
-    $customLimiter = new class implements RateLimiterContract {
+    $customLimiter = new class implements RateLimiterContract
+    {
         public function configure(): Limit|array
         {
             return Limit::perMinute(99)->by('custom-key');

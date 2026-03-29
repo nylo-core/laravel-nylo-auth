@@ -24,6 +24,7 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         $userModel = config('laravel-nylo-auth.user_model');
+
         return [
             'name' => 'sometimes|max:255',
             'email' => "required|email|max:255|unique:{$userModel},email",

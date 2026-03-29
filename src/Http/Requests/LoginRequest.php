@@ -24,6 +24,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         $userModel = config('laravel-nylo-auth.user_model');
+
         return [
             'email' => "required|email|max:255|exists:{$userModel},email",
             'password' => 'required|string',

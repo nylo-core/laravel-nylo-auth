@@ -2,7 +2,6 @@
 
 namespace Nylo\LaravelNyloAuth\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Nylo\LaravelNyloAuth\LaravelNyloAuthServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
