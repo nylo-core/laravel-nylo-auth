@@ -2,6 +2,7 @@
 
 namespace Nylo\LaravelNyloAuth;
 
+use Illuminate\Support\Facades\RateLimiter;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -22,6 +23,10 @@ class LaravelNyloAuthServiceProvider extends PackageServiceProvider
 
     public function packageBooted()
     {
+        $publicClass = config('laravel-nylo-auth.rate_limits.public');
+        $authClass = config('laravel-nylo-auth.rate_limits.authenticated');
 
+        RateLimiter::for('nylo-public', fn ($request) => app($publicClass)->configure());
+        RateLimiter::for('nylo-auth', fn ($request) => app($authClass)->configure());
     }
 }

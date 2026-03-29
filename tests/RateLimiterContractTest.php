@@ -38,3 +38,18 @@ it('AuthenticatedRateLimiter returns a Limit of 60 per minute', function () {
     expect($limit->maxAttempts)->toBe(60);
     expect($limit->decayMinutes)->toBe(1);
 });
+
+use Illuminate\Support\Facades\RateLimiter;
+
+it('registers nylo-public and nylo-auth named rate limiters on boot', function () {
+    expect(RateLimiter::limiter('nylo-public'))->not->toBeNull();
+    expect(RateLimiter::limiter('nylo-auth'))->not->toBeNull();
+});
+
+it('resolves rate limiter classes from config', function () {
+    config()->set('laravel-nylo-auth.rate_limits.public', PublicRateLimiter::class);
+    config()->set('laravel-nylo-auth.rate_limits.authenticated', AuthenticatedRateLimiter::class);
+
+    expect(config('laravel-nylo-auth.rate_limits.public'))->toBe(PublicRateLimiter::class);
+    expect(config('laravel-nylo-auth.rate_limits.authenticated'))->toBe(AuthenticatedRateLimiter::class);
+});
