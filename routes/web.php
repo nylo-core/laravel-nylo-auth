@@ -13,7 +13,7 @@ Route::group([
 ], function () {
     Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('register', [AuthController::class, 'register'])->name('register');
-    Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('forget-password');
+    Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password');
 
     Route::group([
         'middleware' => ['auth:sanctum', 'throttle:nylo-auth'],

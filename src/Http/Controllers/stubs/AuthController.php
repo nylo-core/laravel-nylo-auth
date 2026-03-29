@@ -44,18 +44,13 @@ class AuthController extends Controller
     {
         $userModel = config('laravel-nylo-auth.user_model');
 
-        $user = $userModel::updateOrCreate(
-            ['email' => $request->email],
-            [
-                'name' => $request->name ?? '',
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ]
-        );
+        $user = $userModel::create([
+            'name' => $request->name ?? '',
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
-        if ($user->wasRecentlyCreated) {
-            event(new Registered($user));
-        }
+        event(new Registered($user));
 
         return $this->authResponse($user);
     }

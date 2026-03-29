@@ -59,7 +59,7 @@ use Illuminate\Support\Facades\Route;
 it('public routes have nylo-public throttle middleware', function () {
     $loginRoute = Route::getRoutes()->getByName('nylo.api.v1.login');
     $registerRoute = Route::getRoutes()->getByName('nylo.api.v1.register');
-    $forgotRoute = Route::getRoutes()->getByName('nylo.api.v1.forget-password');
+    $forgotRoute = Route::getRoutes()->getByName('nylo.api.v1.forgot-password');
 
     expect($loginRoute->middleware())->toContain('throttle:nylo-public');
     expect($registerRoute->middleware())->toContain('throttle:nylo-public');
