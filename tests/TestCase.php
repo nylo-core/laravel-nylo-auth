@@ -2,9 +2,12 @@
 
 namespace Nylo\LaravelNyloAuth\Tests;
 
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\AuthController;
 use Laravel\Sanctum\SanctumServiceProvider;
 use Nylo\LaravelNyloAuth\LaravelNyloAuthServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Workbench\App\Models\User;
 
 class TestCase extends Orchestra
 {
@@ -12,10 +15,10 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        if (! class_exists(\App\Http\Controllers\AuthController::class)) {
+        if (! class_exists(AuthController::class)) {
             require __DIR__.'/../src/Http/Controllers/stubs/AuthController.php';
         }
-        if (! class_exists(\App\Http\Controllers\ApiController::class)) {
+        if (! class_exists(ApiController::class)) {
             require __DIR__.'/../src/Http/Controllers/stubs/ApiController.php';
         }
     }
@@ -51,7 +54,8 @@ class TestCase extends Orchestra
             'driver' => 'sqlite',
             'database' => ':memory:',
         ]);
-        config()->set('laravel-nylo-auth.user_model', \Workbench\App\Models\User::class);
-        config()->set('auth.providers.users.model', \Workbench\App\Models\User::class);
+        config()->set('app.key', 'base64:'.base64_encode(random_bytes(32)));
+        config()->set('laravel-nylo-auth.user_model', User::class);
+        config()->set('auth.providers.users.model', User::class);
     }
 }

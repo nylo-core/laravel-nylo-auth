@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -20,7 +21,7 @@ class AuthController extends Controller
     /**
      * Login user and create token
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function login(LoginRequest $request)
     {
@@ -38,7 +39,7 @@ class AuthController extends Controller
     /**
      * Register user and create token
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function register(RegisterRequest $request)
     {
@@ -58,7 +59,7 @@ class AuthController extends Controller
     /**
      * Forgot password
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function forgotPassword(ForgotPasswordRequest $request)
     {
@@ -76,7 +77,7 @@ class AuthController extends Controller
     /**
      * Create token for user and return response
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     private function authResponse($user)
     {

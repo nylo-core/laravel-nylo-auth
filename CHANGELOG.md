@@ -1,8 +1,11 @@
-## [1.3.3] - 2026-03-29
+## [2.0.0] - 2026-03-29
 
-### Fixed
-- Excluded `phpunit/phpunit` >=10.5.62 which conflicts with Pest 2.x
-- Capped `pestphp/pest` to `<2.36.1` and `pestphp/pest-plugin-laravel` to `<2.4` for PHP 8.1 compatibility
+### Changed
+- Bumped minimum PHP version to 8.2
+- Upgraded to Laravel 11/12 support (dropped Laravel 10)
+- Upgraded to Sanctum 4.x
+- Upgraded to Pest 3, PHPUnit 11, Collision 8, Testbench 9/10
+- Updated CI matrix: PHP 8.2–8.4, Laravel 11–12, `actions/checkout@v4`
 
 ## [1.3.0] - 2026-03-29
 

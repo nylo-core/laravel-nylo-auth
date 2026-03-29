@@ -22,7 +22,7 @@ it('PublicRateLimiter returns a Limit of 5 per minute', function () {
 
     expect($limit)->toBeInstanceOf(Limit::class);
     expect($limit->maxAttempts)->toBe(5);
-    expect($limit->decayMinutes)->toBe(1);
+    expect($limit->decaySeconds)->toBe(60);
 });
 
 it('AuthenticatedRateLimiter implements RateLimiterContract', function () {
@@ -36,7 +36,7 @@ it('AuthenticatedRateLimiter returns a Limit of 60 per minute', function () {
 
     expect($limit)->toBeInstanceOf(Limit::class);
     expect($limit->maxAttempts)->toBe(60);
-    expect($limit->decayMinutes)->toBe(1);
+    expect($limit->decaySeconds)->toBe(60);
 });
 
 use Illuminate\Support\Facades\RateLimiter;

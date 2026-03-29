@@ -1,12 +1,16 @@
 <?php
 
+use App\Models\User;
+use Nylo\LaravelNyloAuth\RateLimiters\AuthenticatedRateLimiter;
+use Nylo\LaravelNyloAuth\RateLimiters\PublicRateLimiter;
+
 return [
 
-    'user_model' => \App\Models\User::class,
+    'user_model' => User::class,
 
     'rate_limits' => [
-        'public' => \Nylo\LaravelNyloAuth\RateLimiters\PublicRateLimiter::class,
-        'authenticated' => \Nylo\LaravelNyloAuth\RateLimiters\AuthenticatedRateLimiter::class,
+        'public' => PublicRateLimiter::class,
+        'authenticated' => AuthenticatedRateLimiter::class,
     ],
 
 ];
