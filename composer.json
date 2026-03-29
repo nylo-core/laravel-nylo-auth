@@ -29,7 +29,7 @@
         "pestphp/pest": "^2.20 <2.36.1",
         "pestphp/pest-plugin-arch": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0 <2.4",
-        "phpunit/phpunit": "^10.5 <10.5.63"
+        "phpunit/phpunit": "^10.5 <10.5.62"
     },
     "autoload": {
         "psr-4": {

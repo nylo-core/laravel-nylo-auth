@@ -1,7 +1,7 @@
-## [1.3.2] - 2026-03-29
+## [1.3.3] - 2026-03-29
 
 ### Fixed
-- Excluded `phpunit/phpunit` 10.5.63 which conflicts with Pest 2.x in CI
+- Excluded `phpunit/phpunit` >=10.5.62 which conflicts with Pest 2.x
 - Capped `pestphp/pest` to `<2.36.1` and `pestphp/pest-plugin-laravel` to `<2.4` for PHP 8.1 compatibility
 
 ## [1.3.0] - 2026-03-29
