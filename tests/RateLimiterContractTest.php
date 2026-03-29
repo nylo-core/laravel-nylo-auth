@@ -53,3 +53,21 @@ it('resolves rate limiter classes from config', function () {
     expect(config('laravel-nylo-auth.rate_limits.public'))->toBe(PublicRateLimiter::class);
     expect(config('laravel-nylo-auth.rate_limits.authenticated'))->toBe(AuthenticatedRateLimiter::class);
 });
+
+use Illuminate\Support\Facades\Route;
+
+it('public routes have nylo-public throttle middleware', function () {
+    $loginRoute = Route::getRoutes()->getByName('nylo.api.v1.login');
+    $registerRoute = Route::getRoutes()->getByName('nylo.api.v1.register');
+    $forgotRoute = Route::getRoutes()->getByName('nylo.api.v1.forget-password');
+
+    expect($loginRoute->middleware())->toContain('throttle:nylo-public');
+    expect($registerRoute->middleware())->toContain('throttle:nylo-public');
+    expect($forgotRoute->middleware())->toContain('throttle:nylo-public');
+});
+
+it('authenticated routes have nylo-auth throttle middleware', function () {
+    $userRoute = Route::getRoutes()->getByName('nylo.api.v1.auth.user');
+
+    expect($userRoute->middleware())->toContain('throttle:nylo-auth');
+});
