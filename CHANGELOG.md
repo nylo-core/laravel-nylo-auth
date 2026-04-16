@@ -1,3 +1,9 @@
+## [2.1.0] - 2026-04-16
+
+### Added
+- Configurable middleware via `middleware.public` and `middleware.authenticated` config keys; custom middleware is appended to the built-in `throttle:*` / `auth:sanctum` middleware so the defaults always run first
+- Per-route middleware via `middleware.routes` config key, keyed by full route name (e.g. `nylo.api.v1.register`); runs after built-in and group-level middleware for that route
+
 ## [2.0.0] - 2026-03-29
 
 ### Changed

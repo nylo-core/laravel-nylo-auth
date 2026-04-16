@@ -101,6 +101,25 @@ Then in `config/laravel-nylo-auth.php`:
 ],
 ```
 
+## Custom Middleware
+
+You can append your own middleware to the package's route groups via `config/laravel-nylo-auth.php`. Entries are merged *after* the built-in `throttle:*` and `auth:sanctum` middleware, so rate limiting and authentication still run first.
+
+```php
+'middleware' => [
+    'public' => ['locale'],              // login, register, forgot-password
+    'authenticated' => ['log.requests'], // authenticated endpoints (e.g. /user)
+
+    // Target individual routes by their full name
+    'routes' => [
+        'nylo.api.v1.register' => ['captcha'],
+        'nylo.api.v1.auth.user' => ['log.user.access'],
+    ],
+],
+```
+
+Use any middleware alias registered in your app or a fully-qualified middleware class name. Per-route middleware runs *after* the built-in and group-level middleware for that route.
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
