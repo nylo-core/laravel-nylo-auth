@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Nylo\LaravelNyloAuth\Http\Controllers\Controller;
@@ -31,7 +33,11 @@ class AuthController extends Controller
 
         $user = Auth::user();
 
-        event(new Login(config('auth.defaults.guard'), $user, false));
+        if ($user === null) {
+            return response()->json(['status' => 510, 'message' => 'Invalid login details']);
+        }
+
+        event(new Login(Config::string('auth.defaults.guard'), $user, false));
 
         return $this->authResponse($user);
     }
@@ -43,13 +49,17 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        $userModel = config('laravel-nylo-auth.user_model');
+        $userModel = Config::string('laravel-nylo-auth.user_model');
 
         $user = $userModel::create([
             'name' => $request->name ?? '',
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($request->string('password')->toString()),
         ]);
+
+        if (! $user instanceof Authenticatable) {
+            return response()->json(['status' => 500, 'message' => 'Unable to create user']);
+        }
 
         event(new Registered($user));
 
@@ -79,7 +89,7 @@ class AuthController extends Controller
      *
      * @return JsonResponse
      */
-    private function authResponse($user)
+    private function authResponse(Authenticatable $user)
     {
         // Create Laravel Sanctum Token
         $token = $user->createToken('app_api')->plainTextToken;

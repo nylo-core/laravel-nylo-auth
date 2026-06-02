@@ -3,6 +3,7 @@
 namespace Nylo\LaravelNyloAuth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Config;
 
 class ForgotPasswordRequest extends FormRequest
 {
@@ -19,11 +20,11 @@ class ForgotPasswordRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, string>
      */
-    public function rules()
+    public function rules(): array
     {
-        $userModel = config('laravel-nylo-auth.user_model');
+        $userModel = Config::string('laravel-nylo-auth.user_model');
 
         return [
             'email' => "required|email|max:255|exists:{$userModel},email",

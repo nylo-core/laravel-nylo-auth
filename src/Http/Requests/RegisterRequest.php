@@ -3,6 +3,7 @@
 namespace Nylo\LaravelNyloAuth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Config;
 
 class RegisterRequest extends FormRequest
 {
@@ -19,11 +20,11 @@ class RegisterRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, string>
      */
-    public function rules()
+    public function rules(): array
     {
-        $userModel = config('laravel-nylo-auth.user_model');
+        $userModel = Config::string('laravel-nylo-auth.user_model');
 
         return [
             'name' => 'sometimes|max:255',

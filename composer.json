@@ -23,12 +23,14 @@
         "spatie/laravel-package-tools": "^1.16.1"
     },
     "require-dev": {
+        "larastan/larastan": "^3.10",
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^8.0",
         "orchestra/testbench": "^9.0|^10.0",
         "pestphp/pest": "^3.0",
         "pestphp/pest-plugin-arch": "^3.0",
-        "pestphp/pest-plugin-laravel": "^3.0"
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "phpstan/extension-installer": "^1.4"
     },
     "autoload": {
         "psr-4": {

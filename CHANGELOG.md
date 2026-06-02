@@ -1,3 +1,14 @@
+## [2.1.1] - 2026-06-02
+
+### Added
+- PHPStan/Larastan static analysis at level 10 (`phpstan.neon.dist` config; `larastan/larastan` and `phpstan/extension-installer` dev dependencies)
+- `login()` now returns a `510` JSON response when authentication resolves to no user
+- `register()` now returns a `500` JSON response when the configured user model cannot create the user
+- Configured rate limiters are validated against `RateLimiterContract`, throwing `InvalidArgumentException` when the contract is not implemented
+
+### Changed
+- Strengthened type safety across `src/` to pass PHPStan level 10: explicit return types on `rules(): array` and `packageBooted(): void`, `Authenticatable` type hints in the stub `AuthController`, and `Config::string()` for type-safe config reads
+
 ## [2.1.0] - 2026-04-16
 
 ### Added

@@ -2,7 +2,10 @@
 
 namespace Nylo\LaravelNyloAuth;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\RateLimiter;
+use InvalidArgumentException;
+use Nylo\LaravelNyloAuth\Contracts\RateLimiterContract;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -21,12 +24,28 @@ class LaravelNyloAuthServiceProvider extends PackageServiceProvider
         ]);
     }
 
-    public function packageBooted()
+    public function packageBooted(): void
     {
-        $publicClass = config('laravel-nylo-auth.rate_limits.public');
-        $authClass = config('laravel-nylo-auth.rate_limits.authenticated');
+        RateLimiter::for('nylo-public', fn () => $this->resolveRateLimiter('public')->configure());
+        RateLimiter::for('nylo-auth', fn () => $this->resolveRateLimiter('authenticated')->configure());
+    }
 
-        RateLimiter::for('nylo-public', fn ($request) => app($publicClass)->configure());
-        RateLimiter::for('nylo-auth', fn ($request) => app($authClass)->configure());
+    /**
+     * Resolve a configured rate limiter from the container, ensuring it
+     * honours the package contract. Resolved per request so limiters may
+     * depend-inject.
+     */
+    protected function resolveRateLimiter(string $group): RateLimiterContract
+    {
+        $class = Config::string("laravel-nylo-auth.rate_limits.{$group}");
+        $limiter = app($class);
+
+        if (! $limiter instanceof RateLimiterContract) {
+            throw new InvalidArgumentException(
+                "Rate limiter [{$class}] must implement ".RateLimiterContract::class.'.'
+            );
+        }
+
+        return $limiter;
     }
 }
